@@ -2,8 +2,6 @@
 
 **One index for text, web pages, PDFs, images, audio, and video. When the answer lives in a video or a recording, the model reopens the file rather than reading a summary of it.**
 
-![The app with six indexed sources and an answer citing a video and a blog post](assets/demo.png)
-
 The trick with multimodal retrieval is that you cannot embed a video. So this pipeline does two passes over media. At ingest, Gemini watches the video, listens to the audio, or looks at the image and writes a detailed description; that text is what gets chunked and embedded, and it's what similarity search runs against. Then at query time, if a chunk from a media source comes back in the top-k, the original file is attached to the generation request alongside the text.
 
 That second half is the part worth having. The model does not answer from a description it wrote earlier, which is a lossy summary written before anyone asked a question. It reopens the file and looks again, with your actual question in hand. Ask what a timer in the corner of a video reads and it can tell you, even though no description would have thought to mention it.
@@ -45,11 +43,10 @@ Real numbers to expect before you point this at a folder of files:
 
 ## Setup
 
-You need Python 3.10+, [uv](https://docs.astral.sh/uv/), and a Google API key from [aistudio.google.com](https://aistudio.google.com).
+You need Python 3.10+, and a Google API key from [aistudio.google.com](https://aistudio.google.com).
 
 ```bash
-git clone https://github.com/Sumanth077/Hands-On-AI-Engineering.git
-cd Hands-On-AI-Engineering/multimodal/multimodal_rag
+git clone https://github.com/hariharan-sabapathi/rag-reads-sees-hears
 cp .env.example .env      # then add your key
 uv sync
 uv run streamlit run app.py
